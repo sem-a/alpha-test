@@ -1,0 +1,26 @@
+.cardList {
+    margin-top: 121px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.showMore {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.showMore button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.showMore button:hover {
+    background-color: #0056b3;
+}

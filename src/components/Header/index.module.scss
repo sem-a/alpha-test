@@ -1,0 +1,25 @@
+.header {
+    width: 100%;
+    padding: 21px 0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+}
+h2.logo {
+    font-size: 48px;
+    font-weight: 700;
+}
+.headerFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+ul.menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 21px;
+}
