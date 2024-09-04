@@ -3,14 +3,24 @@ import styles from "./index.module.scss";
 import { H3 } from "../Title";
 import { DeleteOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Button } from "../FormItems";
+import { useDispatch } from "react-redux";
+import { deleteCard } from "../../store/cardsSlice";
 
 interface CardProps {
+    id: number
     title: string;
     url: string;
     likes: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ title, url, likes }) => {
+const Card: React.FC<CardProps> = ({ id, title, url, likes }) => {
+
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        dispatch(deleteCard(id));
+    }
+
     return (
         <div className={styles.card}>
             <div className={styles.cardContainer}>
@@ -27,7 +37,7 @@ const Card: React.FC<CardProps> = ({ title, url, likes }) => {
                 </div>
                 {likes ? <HeartFilled className={styles.cardIconLike} /> : <HeartOutlined className={styles.cardIconLike} />}
                 <div className={styles.cardIconDelete}>
-                    <Button><DeleteOutlined />Delete</Button>
+                    <Button onClick={handleDelete}><DeleteOutlined />Delete</Button>
                 </div>
             </div>
         </div>

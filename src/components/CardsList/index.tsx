@@ -29,7 +29,7 @@ const CardList: React.FC = () => {
     <div>
       <div className={styles.cardList}>
         {cards.slice(0, visibleCards).map((card) => (
-          <Card key={card.id} title={card.title} url={card.url} likes={card.likes} />
+          <Card key={card.id} id={card.id} title={card.title} url={card.url} likes={card.likes} />
         ))}
       </div>
       {visibleCards < cards.length && (

@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 
 type PropsButton = {
     children: React.ReactNode;
+    onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
 type PropsInput = {
@@ -18,10 +19,10 @@ type PropsFormItem = {
 type PropsLabel = {
     children: React.ReactNode;
     htmlFor: string | undefined;
-}
+};
 
-export const Button: React.FC<PropsButton> = ({ children }) => {
-    return <button>{children}</button>;
+export const Button: React.FC<PropsButton> = ({ children, onClick }) => {
+    return <button onClick={onClick}>{children}</button>;
 };
 
 export const Input: React.FC<PropsInput> = ({ placeholder, id, name }) => {
@@ -35,9 +36,9 @@ export const Input: React.FC<PropsInput> = ({ placeholder, id, name }) => {
     );
 };
 
-export const Label: React.FC<PropsLabel> = ({children, htmlFor}) => {
-    return <label htmlFor={htmlFor}>{children}</label>
-}
+export const Label: React.FC<PropsLabel> = ({ children, htmlFor }) => {
+    return <label htmlFor={htmlFor}>{children}</label>;
+};
 
 export const FormItem: React.FC<PropsFormItem> = ({ children }) => {
     return <div className={styles.formItem}>{children}</div>;

@@ -24,9 +24,14 @@ export const cardsSlice = createSlice({
         setCards: (state, action: PayloadAction<Card[]>) => {
             state.cards = action.payload;
         },
+        deleteCard: (state, action: PayloadAction<number>) => {
+            state.cards = state.cards.filter(
+                (card) => card.id !== action.payload
+            );
+        },
     },
 });
 
-export const { setCards } = cardsSlice.actions;
+export const { setCards, deleteCard } = cardsSlice.actions;
 
 export default cardsSlice.reducer;
