@@ -22,7 +22,7 @@ type PropsLabel = {
 };
 
 export const Button: React.FC<PropsButton> = ({ children, onClick }) => {
-    return <button onClick={onClick}>{children}</button>;
+    return <button className={styles.customButton} onClick={onClick}>{children}</button>;
 };
 
 export const Input: React.FC<PropsInput> = ({ placeholder, id, name }) => {

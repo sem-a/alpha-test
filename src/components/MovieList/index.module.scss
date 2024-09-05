@@ -1,5 +1,22 @@
+.filterButton {
+    margin-top: 121px   ;
+    display: flex;
+    justify-content: center;
+}
+
+.filterButton button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.filterButton button.activeFilter {
+    background-color: #007bff;
+    color: #fff;
+}
 .cardList {
-    margin-top: 121px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

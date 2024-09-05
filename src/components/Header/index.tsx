@@ -9,9 +9,9 @@ export const Header = () => {
                 <div className={styles.headerFlex}>
                     <h2 className={styles.logo}>ProductTest</h2>
                     <ul className={styles.menu}>
+                        <li className={styles.menuItem}>Главная</li>
                         <li className={styles.menuItem}>Продукты</li>
-                        <li className={styles.menuItem}>Продукты</li>
-                        <li className={styles.menuItem}>Продукты</li>
+                        <li className={styles.menuItem}>Создать продукт</li>
                     </ul>
                 </div>
             </Container>
