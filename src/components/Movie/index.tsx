@@ -1,36 +1,14 @@
 import React from "react";
 import styles from "./index.module.scss";
-import { H3 } from "../Title";
+import { H3 } from "../title";
 import { DeleteOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { Button } from "../FormItems";
+import { Button } from "../form-item";
 import { useDispatch } from "react-redux";
 import { deleteMovie, likeMovie } from "../../store/moviesSlice";
-
-interface Movie {
-    id: number;
-    name: string;
-    year: number;
-    description: string;
-    rating: {
-        kp: number;
-        imdb: number;
-        filmCritics: number;
-        russianFilmCritics: number;
-        await: number;
-    };
-    movieLenght: number;
-    poster: {
-        url: string;
-        previewUrl: string;
-    };
-    genres: {
-        name: string;
-    }[];
-    likes: boolean;
-}
+import { MovieType } from "../../types";
 
 interface MovieProps {
-    movie: Movie;
+    movie: MovieType;
 }
 
 const Movie: React.FC<MovieProps> = ({ movie }) => {

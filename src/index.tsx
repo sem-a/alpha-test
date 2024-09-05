@@ -6,7 +6,8 @@ import App from './App';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PATHS } from './paths';
-import Product from './page/Product';
+import Product from './page/product';
+import ProductAdd from './page/product-add';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: PATHS.products,
     element: <Product />
+  },
+  {
+    path: PATHS.createProducts,
+    element: <ProductAdd />
   }
 ])
 

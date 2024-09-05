@@ -1,40 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { MovieType } from "../types";
 
-interface MovieRating {
-    kp: number;
-    imdb: number;
-    filmCritics: number;
-    russianFilmCritics: number;
-    await: number;
-}
-
-interface MoviePoster {
-    url: string;
-    previewUrl: string;
-}
-
-interface MovieGenres {
-    name: string;
-}
-
-interface Movie {
-    id: number;
-    name: string;
-    year: number;
-    description: string;
-    rating: MovieRating;
-    movieLenght: number;
-    poster: MoviePoster;
-    genres: MovieGenres[];
-    likes: boolean;
-}
-
-interface MovieResponse {
-    docs: Movie[];
+interface AddMoviePayload {
+    movie: MovieType;
 }
 
 interface MoviesState {
-    movies: Movie[];
+    movies: MovieType[];
 }
 
 const initialState: MoviesState = {
@@ -45,7 +17,7 @@ export const moviesSlice = createSlice({
     name: "movies",
     initialState,
     reducers: {
-        setMovies: (state, action: PayloadAction<Movie[]>) => {
+        setMovies: (state, action: PayloadAction<MovieType[]>) => {
             state.movies = action.payload.map((movie) => ({
                 ...movie,
                 likes: false,
@@ -67,9 +39,12 @@ export const moviesSlice = createSlice({
                 return movie;
             });
         },
+        addMovie: (state, action: PayloadAction<AddMoviePayload>) => {
+            state.movies.unshift(action.payload.movie);
+        },
     },
 });
 
-export const { setMovies, deleteMovie, likeMovie } = moviesSlice.actions;
+export const { setMovies, deleteMovie, likeMovie, addMovie } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

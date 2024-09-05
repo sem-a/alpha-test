@@ -2,32 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../store/moviesSlice";
 import { RootState, AppDispatch } from "../../store/store";
-import Movie from "../Movie";
+import Movie from "../movie";
 import styles from "./index.module.scss";
 import { API_FETCH, API_KEY } from "../../const";
-
-interface MovieType {
-    id: number;
-    name: string;
-    year: number;
-    description: string;
-    rating: {
-        kp: number;
-        imdb: number;
-        filmCritics: number;
-        russianFilmCritics: number;
-        await: number;
-    };
-    movieLenght: number;
-    poster: {
-        url: string;
-        previewUrl: string;
-    };
-    genres: {
-        name: string;
-    }[];
-    likes: boolean;
-}
+import { MovieType } from "../../types";
 
 const MovieList: React.FC = () => {
     const movies = useSelector((state: RootState) => state.movies.movies);
@@ -38,14 +16,20 @@ const MovieList: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(API_FETCH, {
-                headers: {
-                    "X-API-KEY": API_KEY,
-                    accept: "application/json",
-                },
-            });
-            const data = await response.json();
-            dispatch(setMovies(data.docs));
+            try {
+                const response = await fetch(API_FETCH, {
+                    headers: {
+                        "X-API-KEY": API_KEY,
+                        accept: "application/json",
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    dispatch(setMovies(data.docs));
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         };
 
         fetchData();
@@ -78,15 +62,21 @@ const MovieList: React.FC = () => {
                     Избранное
                 </button>
             </div>
-            <div className={styles.cardList}>
-                {filteredMovies.slice(0, visibleMovies).map((movie: MovieType) => (
-                    <Movie key={movie.id} movie={movie} />
-                ))}
-            </div>
-            {visibleMovies < filteredMovies.length && (
-                <div className={styles.showMore}>
-                    <button onClick={showMoreMovies}>Показать еще</button>
-                </div>
+            {filteredMovies && filteredMovies.length === 0 ? (
+                <div>Ничего не найдено</div>
+            ) : (
+                <>
+                    <div className={styles.cardList}>
+                        {filteredMovies && filteredMovies.length > 0 && filteredMovies.slice(0, visibleMovies).map((movie: MovieType) => (
+                            <Movie key={movie.id} movie={movie} />
+                        ))}
+                    </div>
+                    {visibleMovies < (filteredMovies && filteredMovies.length) && (
+                        <div className={styles.showMore}>
+                            <button onClick={showMoreMovies}>Показать еще</button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
