@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+.mainItems p a {
+    color: blue;
+    text-decoration: underline;
+}
+.mainItems p {
+    margin-top: 7px;
+}

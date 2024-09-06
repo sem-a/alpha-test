@@ -29,7 +29,7 @@ export const fetchMoviesAsync = createAsyncThunk(
             },
         });
         const data = await response.json();
-        return data.docs; // Предположим, что данные приходят в виде массива объектов
+        return data.docs;
     }
 );
 

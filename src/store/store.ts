@@ -9,7 +9,6 @@ export const store = configureStore({
 
 store.dispatch(fetchMoviesAsync())
   .then(() => {
-    // После завершения запроса можно продолжить инициализацию стора
     console.log('Данные успешно загружены из fetch запроса');
   })
   .catch((error) => {

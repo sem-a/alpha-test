@@ -47,17 +47,6 @@ type PropsRangeInput = {
     value?: string | number | readonly string[] | undefined;
 };
 
-type PropsSelect = {
-    options: {
-        value: string;
-        label: string;
-    }[];
-    id: string | undefined;
-    name: string | undefined;
-    onChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined;
-    value?: string | number | readonly string[] | undefined;
-};
-
 export const Button: React.FC<PropsButton> = ({ children, type, onClick }) => {
     return (
         <button className={styles.customButton} type={type} onClick={onClick}>
@@ -136,16 +125,4 @@ export const FormFlex: React.FC<PropsFormItem> = ({ children }) => {
 
 export const Form: React.FC<PropsForm> = ({ children, onSubmit }) => {
     return <form className={styles.customForm} onSubmit={onSubmit}>{children}</form>;
-};
-
-export const Select: React.FC<PropsSelect> = ({ options, id, name, value, onChange }) => {
-    return (
-        <select id={id} name={name} value={value} onChange={onChange}>
-            {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
-        </select>
-    );
 };
