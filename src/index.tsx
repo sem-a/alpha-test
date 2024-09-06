@@ -6,8 +6,10 @@ import App from './App';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PATHS } from './paths';
-import Product from './page/product';
+import Products from './page/products';
 import ProductAdd from './page/product-add';
+import ProductEdit from './page/product-edit';
+import Product from './page/product';
 
 const router = createBrowserRouter([
   {
@@ -16,11 +18,19 @@ const router = createBrowserRouter([
   },
   {
     path: PATHS.products,
-    element: <Product />
+    element: <Products />
   },
   {
     path: PATHS.createProducts,
     element: <ProductAdd />
+  },
+  {
+    path: `${PATHS.editProducts}/:id`,
+    element: <ProductEdit />
+  },
+  {
+    path: `${PATHS.product}/:id`,
+    element: <Product />
   }
 ])
 

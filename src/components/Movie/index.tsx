@@ -1,11 +1,18 @@
 import React from "react";
 import styles from "./index.module.scss";
 import { H3 } from "../title";
-import { DeleteOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    HeartOutlined,
+    HeartFilled,
+    EditOutlined,
+} from "@ant-design/icons";
 import { Button } from "../form-item";
 import { useDispatch } from "react-redux";
 import { deleteMovie, likeMovie } from "../../store/moviesSlice";
 import { MovieType } from "../../types";
+import { Link } from "react-router-dom";
+import { PATHS } from "../../paths";
 
 interface MovieProps {
     movie: MovieType;
@@ -33,7 +40,9 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
                         <div className={styles.year}>
                             <p>{movie.year}</p>
                         </div>
-                        <H3>{movie.name}</H3>
+                        <Link to={`${PATHS.product}/${movie.id}`}>
+                            <H3>{movie.name}</H3>
+                        </Link>
                     </div>
                     <div className={styles.movieRating}></div>
                     <div className={styles.movieGenres}>
@@ -47,6 +56,11 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
                         <Button onClick={handleLike}>
                             {movie.likes ? <HeartFilled /> : <HeartOutlined />}
                         </Button>
+                        <Link to={`/edit/${movie.id}`}>
+                            <Button>
+                                <EditOutlined />
+                            </Button>
+                        </Link>
                         <Button onClick={handleDelete}>
                             <DeleteOutlined />
                             Delete

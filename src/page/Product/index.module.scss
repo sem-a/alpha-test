@@ -1,0 +1,29 @@
+.products {
+    padding: 20px;
+}
+
+.movieDetails {
+    display: flex;
+    align-items: center;
+}
+
+.movieImage img {
+    max-width: 200px;
+    margin-right: 20px;
+}
+
+.movieInfo {
+    flex: 1;
+}
+
+.rating {
+    margin-top: 10px;
+}
+
+.genres {
+    margin-top: 10px;
+}
+
+.likes {
+    margin-top: 10px;
+}

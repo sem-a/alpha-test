@@ -6,6 +6,11 @@ interface AddMoviePayload {
     movie: MovieType;
 }
 
+interface UpdateMoviePayload {
+    id: number;
+    updatedMovie: Partial<MovieType>;
+}
+
 interface MoviesState {
     movies: MovieType[];
 }
@@ -57,6 +62,18 @@ export const moviesSlice = createSlice({
         addMovie: (state, action: PayloadAction<AddMoviePayload>) => {
             state.movies.unshift(action.payload.movie);
         },
+        updateMovie: (state, action: PayloadAction<UpdateMoviePayload>) => {
+            const { id, updatedMovie } = action.payload;
+            state.movies = state.movies.map((movie) => {
+                if (movie.id === id) {
+                    return {
+                        ...movie,
+                        ...updatedMovie,
+                    };
+                }
+                return movie;
+            });
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchMoviesAsync.fulfilled, (state, action) => {
@@ -68,6 +85,6 @@ export const moviesSlice = createSlice({
     },
 });
 
-export const { setMovies, deleteMovie, likeMovie, addMovie } = moviesSlice.actions;
+export const { setMovies, deleteMovie, likeMovie, addMovie, updateMovie } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
