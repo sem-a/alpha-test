@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MovieType } from "../types";
+import { API_FETCH, API_KEY } from "../const";
 
 interface AddMoviePayload {
     movie: MovieType;
@@ -12,6 +13,20 @@ interface MoviesState {
 const initialState: MoviesState = {
     movies: [],
 };
+
+export const fetchMoviesAsync = createAsyncThunk(
+    'movies/fetchMovies',
+    async () => {
+        const response = await fetch(API_FETCH, {
+            headers: {
+                "X-API-KEY": API_KEY,
+                accept: "application/json",
+            },
+        });
+        const data = await response.json();
+        return data.docs; // Предположим, что данные приходят в виде массива объектов
+    }
+);
 
 export const moviesSlice = createSlice({
     name: "movies",
@@ -42,6 +57,14 @@ export const moviesSlice = createSlice({
         addMovie: (state, action: PayloadAction<AddMoviePayload>) => {
             state.movies.unshift(action.payload.movie);
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchMoviesAsync.fulfilled, (state, action) => {
+            state.movies = action.payload.map((movie: MovieType) => ({
+                ...movie,
+                likes: false,
+            }));
+        });
     },
 });
 

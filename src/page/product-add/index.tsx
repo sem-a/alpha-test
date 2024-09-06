@@ -56,6 +56,7 @@ const ProductAdd = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+        console.log(formData)
         dispatch(addMovie({ movie: formData }));
         setFormData(dataMovieNull);
     };
