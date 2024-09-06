@@ -15,10 +15,12 @@
 
 a, a:link, a:visited  {
     text-decoration: none;
+	color: black;
 }
 
 a:hover  {
     text-decoration: none;
+	color: rgba(0, 0, 0, 0.726);
 }
 
 /* Common */

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "../../components/header";
 import { Container } from "../../components/container";
-import styles from './index.module.scss';
+import styles from "./index.module.scss";
 import { MovieType } from "../../types";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-
+import { H2, H3 } from "../../components/title";
+import { B, P } from "../../components/text";
+import { Button } from "../../components/form-item";
+import { DeleteOutlined, EditOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
+import { deleteMovie, likeMovie } from "../../store/moviesSlice";
 
 const Product = () => {
-
     const dataMovieNull: MovieType = {
         id: 0,
         name: "",
@@ -22,12 +25,11 @@ const Product = () => {
             russianFilmCritics: 0,
             await: 0,
         },
-        movieLenght: 0,
+        movieLength: 0,
         poster: {
             url: "",
             previewUrl: "",
         },
-        genres: [{ name: "драма" }],
         likes: false,
     };
 
@@ -37,8 +39,20 @@ const Product = () => {
     const dispatch = useDispatch();
 
     const movies = useSelector((state: RootState) => state.movies.movies);
-    let movie = movies.find((m) => m.id === movieId);
-    if (!movie) {movie = dataMovieNull}
+    let movieTemp = movies.find((m) => m.id === movieId);
+    if (!movieTemp) {
+        movieTemp = dataMovieNull;
+    }
+
+    const [movie, setMovie] = useState<MovieType>(movieTemp);
+
+    const handleLike = () => {
+        dispatch(likeMovie(movie.id));
+
+    };
+
+    const hours = Math.floor(movie.movieLength / 60);
+    const minutes = movie.movieLength % 60;
 
     return (
         <div className={styles.products}>
@@ -49,27 +63,57 @@ const Product = () => {
                         <img src={movie.poster.url} alt={movie.name} />
                     </div>
                     <div className={styles.movieInfo}>
-                        <h2>{movie.name} ({movie.year})</h2>
-                        <p>{movie.description}</p>
-                        <div className={styles.rating}>
-                            <p>KP: {movie.rating.kp}</p>
-                            <p>IMDB: {movie.rating.imdb}</p>
-                            <p>Film Critics: {movie.rating.filmCritics}</p>
-                            <p>Russian Film Critics: {movie.rating.russianFilmCritics}</p>
-                            <p>Await: {movie.rating.await}</p>
+                        <div className={styles.movieItem}>
+                            <div className={styles.movieTitle}>
+                                <div className={styles.year}>
+                                    <p>{movie.year}</p>
+                                </div>
+                                <H2>{movie.name}</H2>
+                            </div>
                         </div>
-                        <p>Duration: {movie.movieLenght} min</p>
-                        <div className={styles.genres}>
-                            Genres: {movie.genres.map(genre => genre.name).join(', ')}
+                        <div className={styles.movieItem}>
+                            <P>{movie.description}</P>
                         </div>
-                        <div className={styles.likes}>
-                            Likes: {movie.likes ? 'Yes' : 'No'}
+                        <div className={styles.movieItem}>
+                            <div className={styles.rating}>
+                                <H3>Рейтинг</H3>
+                                <P>
+                                    <B>KP:</B> {movie.rating.kp}
+                                </P>
+                                <P>
+                                    <B>IMDB:</B> {movie.rating.imdb}
+                                </P>
+                                <P>
+                                    <B>Film Critics:</B>{" "}
+                                    {movie.rating.filmCritics}
+                                </P>
+                                <P>
+                                    <B>Russian Film Critics:</B>{" "}
+                                    {movie.rating.russianFilmCritics}
+                                </P>
+                                <P>
+                                    <B>Await:</B> {movie.rating.await}
+                                </P>
+                            </div>
                         </div>
+                        <div className={styles.movieItem}>
+                            <div className={styles.duration}>
+                                <H3>Продолжительность</H3>
+                                <P>{`${hours} ч ${minutes} мин`}</P>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.movieButton}>
+                        <Link to={`/products`}>
+                            <Button>
+                                Назад
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </Container>
         </div>
     );
-}
+};
 
 export default Product;

@@ -61,6 +61,7 @@ export const moviesSlice = createSlice({
         },
         addMovie: (state, action: PayloadAction<AddMoviePayload>) => {
             state.movies.unshift(action.payload.movie);
+            alert('Фильм добавлен!')
         },
         updateMovie: (state, action: PayloadAction<UpdateMoviePayload>) => {
             const { id, updatedMovie } = action.payload;
@@ -73,6 +74,7 @@ export const moviesSlice = createSlice({
                 }
                 return movie;
             });
+            alert('Данные успешно изменены!')
         },
     },
     extraReducers: (builder) => {

@@ -31,42 +31,39 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
 
     return (
         <div className={styles.movie}>
-            <div className={styles.movieContainer}>
-                <div className={styles.movieImage}>
-                    <img src={movie.poster.url} alt={movie.name} />
-                </div>
-                <div className={styles.movieBody}>
-                    <div className={styles.movieTitle}>
-                        <div className={styles.year}>
-                            <p>{movie.year}</p>
-                        </div>
-                        <Link to={`${PATHS.product}/${movie.id}`}>
+            <Link to={`${PATHS.product}/${movie.id}`}>
+                <div className={styles.movieContainer}>
+                    <div className={styles.movieImage}>
+                        <img src={movie.poster.url} alt={movie.name} />
+                    </div>
+                    <div className={styles.movieBody}>
+                        <div className={styles.movieTitle}>
+                            <div className={styles.year}>
+                                <p>{movie.year}</p>
+                            </div>
                             <H3>{movie.name}</H3>
-                        </Link>
-                    </div>
-                    <div className={styles.movieRating}></div>
-                    <div className={styles.movieGenres}>
-                        {movie.genres[0].name}
-                    </div>
-                    <div className={styles.movieDescription}>
-                        {movie.description.split(" ").slice(0, 14).join(" ")}
-                        {movie.description.split("").length > 14 ? "..." : ""}
-                    </div>
-                    <div className={styles.movieButton}>
-                        <Button onClick={handleLike}>
-                            {movie.likes ? <HeartFilled /> : <HeartOutlined />}
-                        </Button>
-                        <Link to={`/edit/${movie.id}`}>
-                            <Button>
-                                <EditOutlined />
-                            </Button>
-                        </Link>
-                        <Button onClick={handleDelete}>
-                            <DeleteOutlined />
-                            Delete
-                        </Button>
+                        </div>
+                        <div className={styles.movieRating}></div>
+                        <div className={styles.movieDescription}>
+                            {movie.description.split(" ").slice(0, 14).join(" ")}
+                            {movie.description.split("").length > 14 ? "..." : ""}
+                        </div>
                     </div>
                 </div>
+            </Link>
+            <div className={styles.movieButton}>
+                <Button onClick={handleLike}>
+                    {movie.likes ? <HeartFilled /> : <HeartOutlined />}
+                </Button>
+                <Link to={`/edit/${movie.id}`}>
+                    <Button>
+                        <EditOutlined />
+                    </Button>
+                </Link>
+                <Button onClick={handleDelete}>
+                    <DeleteOutlined />
+                    Delete
+                </Button>
             </div>
         </div>
     );

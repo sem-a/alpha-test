@@ -123,15 +123,19 @@ export const TextArea: React.FC<PropsTextArea> = ({ id, name, onChange, value })
 };
 
 export const Label: React.FC<PropsLabel> = ({ children, htmlFor }) => {
-    return <label htmlFor={htmlFor}>{children}</label>;
+    return <label className={styles.customLabel} htmlFor={htmlFor}>{children}</label>;
 };
 
 export const FormItem: React.FC<PropsFormItem> = ({ children }) => {
     return <div className={styles.formItem}>{children}</div>;
 };
 
+export const FormFlex: React.FC<PropsFormItem> = ({ children }) => {
+    return <div className={styles.formFlex}>{children}</div>;
+};
+
 export const Form: React.FC<PropsForm> = ({ children, onSubmit }) => {
-    return <form onSubmit={onSubmit}>{children}</form>;
+    return <form className={styles.customForm} onSubmit={onSubmit}>{children}</form>;
 };
 
 export const Select: React.FC<PropsSelect> = ({ options, id, name, value, onChange }) => {

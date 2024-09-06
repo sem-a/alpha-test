@@ -1,5 +1,50 @@
 .customButton {
     padding: 7px;
-    background-color: bisque;
-    margin-right: 7px   ;
+    background-color: #007bff;
+    color: white;
+    padding: 7px 13px;
+    border-radius: 5px;
+    height: 38px;
+}
+.customButton:hover {
+    background-color: #0b5aaf;
+}
+.formItem {
+    display: flex;
+    flex-direction: column;
+    margin-top: 14px;
+}
+.formFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+}
+.customLabel {
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 7px;
+}
+.customInput {
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    width: 100%;
+    padding: 7px 13px;
+    border-radius: 5px;
+}
+.customTextArea {
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    width: 100%;
+    padding: 7px 13px;
+    border-radius: 5px;
+}
+.customForm {
+    width: 521px;
+    padding: 42px;
 }

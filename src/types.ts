@@ -10,13 +10,10 @@ export interface MovieType {
         russianFilmCritics: number;
         await: number;
     };
-    movieLenght: number;
+    movieLength: number;
     poster: {
         url: string;
         previewUrl: string;
     };
-    genres: {
-        name: string;
-    }[];
     likes: boolean;
 }

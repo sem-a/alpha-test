@@ -6,11 +6,11 @@ import { H2 } from "../../components/title";
 import {
     Button,
     Form,
+    FormFlex,
     FormItem,
     Input,
     Label,
     RangeInput,
-    Select,
     TextArea,
 } from "../../components/form-item";
 import { MovieType } from "../../types";
@@ -31,14 +31,11 @@ const ProductAdd = () => {
             russianFilmCritics: 0,
             await: 0,
         },
-        movieLenght: 0,
+        movieLength: 0,
         poster: {
             url: "",
             previewUrl: "",
         },
-        genres: [
-            {name: 'драма'}
-        ],
         likes: false,
     };
 
@@ -56,7 +53,24 @@ const ProductAdd = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log(formData)
+        if (
+            !formData.name ||
+            !formData.year ||
+            !formData.description ||
+            !formData.movieLength
+        ) {
+            alert("Пожалуйста, заполните все обязательные поля");
+            return;
+        }
+        const currentYear = new Date().getFullYear();
+        if (formData.year < 1800 || formData.year > currentYear) {
+            alert("Год должен быть от 1800 до текущего года");
+            return;
+        }
+        if (formData.movieLength <= 0) {
+            alert("Длительность фильма должна быть больше 0");
+            return;
+        }
         dispatch(addMovie({ movie: formData }));
         setFormData(dataMovieNull);
     };
@@ -65,38 +79,47 @@ const ProductAdd = () => {
         <div className={styles.productAdd}>
             <Header />
             <Container>
-                <div style={{ marginTop: "121px" }}>
+                <div
+                    style={{
+                        marginTop: "121px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
                     <Form onSubmit={handleSubmit}>
                         <H2>Добавить фильм</H2>
-                        <FormItem>
-                            <Label htmlFor="name">Название</Label>
-                            <Input
-                                name="name"
-                                id="name"
-                                value={formData.name}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        name: e.target.value,
-                                    })
-                                }
-                            />
-                        </FormItem>
-                        <FormItem>
-                            <Label htmlFor="year">Год</Label>
-                            <Input
-                                name="year"
-                                id="year"
-                                type="number"
-                                value={formData.year}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        year: parseInt(e.target.value),
-                                    })
-                                }
-                            />
-                        </FormItem>
+                        <FormFlex>
+                            <FormItem>
+                                <Label htmlFor="name">Название</Label>
+                                <Input
+                                    name="name"
+                                    id="name"
+                                    value={formData.name}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            name: e.target.value,
+                                        })
+                                    }
+                                />
+                            </FormItem>
+                            <FormItem>
+                                <Label htmlFor="year">Год</Label>
+                                <Input
+                                    name="year"
+                                    id="year"
+                                    type="number"
+                                    value={formData.year}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            year: parseInt(e.target.value),
+                                        })
+                                    }
+                                />
+                            </FormItem>
+                        </FormFlex>
                         <FormItem>
                             <Label htmlFor="desc">Описание</Label>
                             <TextArea
@@ -137,11 +160,11 @@ const ProductAdd = () => {
                                 name="lenght"
                                 id="lenght"
                                 type="number"
-                                value={formData.movieLenght}
+                                value={formData.movieLength}
                                 onChange={(e) =>
                                     setFormData({
                                         ...formData,
-                                        movieLenght: parseInt(e.target.value),
+                                        movieLength: parseInt(e.target.value),
                                     })
                                 }
                             />
@@ -163,27 +186,6 @@ const ProductAdd = () => {
                                 }
                             />
                         </FormItem>
-                        {/* <FormItem>
-                            <Label htmlFor="genres">Жанр</Label>
-                            <Select
-                                name="genres"
-                                id="genres"
-                                options={[
-                                    { value: "action", label: "Боевик" },
-                                    { value: "comedy", label: "Комедия" },
-                                    { value: "drama", label: "Драма" },
-                                ]}
-                                value={formData.genres.map(
-                                    (genre) => genre.name
-                                )}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        genres: [{ name: e.target.value }],
-                                    })
-                                }
-                            />
-                        </FormItem> */}
                         <FormItem>
                             <Button type="submit">Добавить</Button>
                         </FormItem>

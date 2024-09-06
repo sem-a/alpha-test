@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import styles from "./index.module.scss";
 import { Header } from "../../components/header";
 import { Container } from "../../components/container";
@@ -10,7 +10,6 @@ import {
     Input,
     Label,
     RangeInput,
-    Select,
     TextArea,
 } from "../../components/form-item";
 import { MovieType } from "../../types";
@@ -32,12 +31,11 @@ const ProductEdit = () => {
             russianFilmCritics: 0,
             await: 0,
         },
-        movieLenght: 0,
+        movieLength: 0,
         poster: {
             url: "",
             previewUrl: "",
         },
-        genres: [{ name: "драма" }],
         likes: false,
     };
 
@@ -48,21 +46,35 @@ const ProductEdit = () => {
 
     const movies = useSelector((state: RootState) => state.movies.movies);
     let movie = movies.find((m) => m.id === movieId);
-    if (!movie) {movie = dataMovieNull}
+    if (!movie) {
+        movie = dataMovieNull;
+    }
     const [formData, setFormData] = useState<MovieType>(movie);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+        if (!formData.name || !formData.year || !formData.description || !formData.movieLength) {
+            alert("Пожалуйста, заполните все обязательные поля");
+            return;
+        }
+        const currentYear = new Date().getFullYear();
+        if (formData.year < 1800 || formData.year > currentYear) {
+            alert("Год должен быть от 1800 до текущего года");
+            return;
+        }
+        if (formData.movieLength <= 0) {
+            alert("Длительность фильма должна быть больше 0");
+            return;
+        }
         dispatch(updateMovie({ id: formData.id, updatedMovie: formData }));
     };
-
     return (
         <div className={styles.productAdd}>
             <Header />
             <Container>
-                <div style={{ marginTop: "121px" }}>
+                <div style={{ marginTop: "121px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Form onSubmit={handleSubmit}>
-                        <H2>Добавить фильм</H2>
+                        <H2>Изменить фильм</H2>
                         <FormItem>
                             <Label htmlFor="name">Название</Label>
                             <Input
@@ -97,6 +109,7 @@ const ProductEdit = () => {
                             <TextArea
                                 id="desc"
                                 name="desc"
+                                
                                 value={formData.description}
                                 onChange={(e) =>
                                     setFormData({
@@ -132,11 +145,11 @@ const ProductEdit = () => {
                                 name="lenght"
                                 id="lenght"
                                 type="number"
-                                value={formData.movieLenght}
+                                value={formData.movieLength}
                                 onChange={(e) =>
                                     setFormData({
                                         ...formData,
-                                        movieLenght: parseInt(e.target.value),
+                                        movieLength: parseInt(e.target.value),
                                     })
                                 }
                             />
@@ -158,27 +171,6 @@ const ProductEdit = () => {
                                 }
                             />
                         </FormItem>
-                        {/* <FormItem>
-                            <Label htmlFor="genres">Жанр</Label>
-                            <Select
-                                name="genres"
-                                id="genres"
-                                options={[
-                                    { value: "action", label: "Боевик" },
-                                    { value: "comedy", label: "Комедия" },
-                                    { value: "drama", label: "Драма" },
-                                ]}
-                                value={formData.genres.map(
-                                    (genre) => genre.name
-                                )}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        genres: [{ name: e.target.value }],
-                                    })
-                                }
-                            />
-                        </FormItem> */}
                         <FormItem>
                             <Button type="submit">Добавить</Button>
                         </FormItem>
