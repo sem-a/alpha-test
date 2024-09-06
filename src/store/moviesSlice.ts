@@ -21,15 +21,25 @@ const initialState: MoviesState = {
 
 export const fetchMoviesAsync = createAsyncThunk(
     'movies/fetchMovies',
-    async () => {
-        const response = await fetch(API_FETCH, {
-            headers: {
-                "X-API-KEY": API_KEY,
-                accept: "application/json",
-            },
-        });
-        const data = await response.json();
-        return data.docs;
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await fetch(API_FETCH, {
+                headers: {
+                    "X-API-KEY": API_KEY,
+                    accept: "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch data");
+            }
+
+            const data = await response.json();
+            return data.docs;
+        } catch (error: any) {
+            console.error("Error fetching movies:", error);
+            return rejectWithValue(error.message);
+        }
     }
 );
 
