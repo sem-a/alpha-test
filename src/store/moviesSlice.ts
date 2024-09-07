@@ -38,7 +38,7 @@ export const fetchMoviesAsync = createAsyncThunk(
             return data.docs;
         } catch (error: any) {
             console.error("Error fetching movies:", error);
-            return rejectWithValue(error.message);
+            return rejectWithValue({ errorMessage: error.message });
         }
     }
 );

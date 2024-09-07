@@ -164,7 +164,7 @@ const ProductAdd = () => {
                                 onChange={(e) =>
                                     setFormData({
                                         ...formData,
-                                        movieLength: parseInt(e.target.value),
+                                        movieLength: e.target.value ? parseInt(e.target.value) : 0,
                                     })
                                 }
                             />
